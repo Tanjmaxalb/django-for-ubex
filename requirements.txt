@@ -7,3 +7,4 @@ six
 nose
 django_nose
 coverage
+pyyaml
