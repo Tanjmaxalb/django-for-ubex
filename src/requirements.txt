@@ -1,0 +1,8 @@
+Django
+django-cors-middleware
+django-extensions
+djangorestframework
+PyJWT
+six
+nose
+django_nose
