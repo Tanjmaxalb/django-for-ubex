@@ -1,0 +1,39 @@
+- model: vulnerabilities.Vulnerability
+  pk: 1
+  fields:
+    name: buffer overflow
+    description: description
+    created_at: "2020-07-22T22:00:00Z"
+    updated_at: "2020-07-22T22:00:00Z"
+- model: vulnerabilities.Vulnerability
+  pk: 2
+  fields:
+    name: out of bounds read
+    description: description
+    created_at: "2020-07-22T22:00:00Z"
+    updated_at: "2020-07-22T22:00:00Z"
+
+- model: softwares.Software
+  pk: 1
+  fields:
+    name: python
+    description: "python 3.6"
+    created_at: "2020-07-22T22:00:00Z"
+    updated_at: "2020-07-22T22:00:00Z"
+    vulnerability: 1
+- model: softwares.Software
+  pk: 2
+  fields:
+    name: django
+    description: web framework
+    created_at: "2020-07-22T22:00:00Z"
+    updated_at: "2020-07-22T22:00:00Z"
+    vulnerability: 2
+- model: softwares.Software
+  pk: 3
+  fields:
+    name: pytest
+    description: pytest
+    created_at: "2020-07-22T22:00:00Z"
+    updated_at: "2020-07-22T22:00:00Z"
+    vulnerability: 1

@@ -4,14 +4,14 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase
 
-from applications.softwares.models import Software
+from applications.vulnerabilities.models import Vulnerability
 
 
-class ListCreateSoftwaresTestCase(APITestCase):
+class ListCreateVulnerabilitiesTestCase(APITestCase):
     fixtures = ["test_sets.yaml"]
 
     def setUp(self):
-        self.url = "/api/softwares/Software"
+        self.url = "/api/vulnerabilities/Vulnerability"
 
         self.username = "tanjmaxalb"
         self.email = "tanjamxalb@gmail.com"
@@ -21,48 +21,40 @@ class ListCreateSoftwaresTestCase(APITestCase):
         self.token = Token.objects.create(user=self.user)
         self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
 
-    def test_get_all_softwares(self):
+    def test_get_all_vulnerabilities(self):
         response = self.client.get(self.url)
-        result = response.json()
-
-        self.assertEqual(200, response.status_code)
-        self.assertEqual(3, len(result))
-
-    def test_get_softwares_with_1st_vulnerability(self):
-        request_data = {"vulnerability": 1}
-        response = self.client.get(self.url, request_data)
         result = response.json()
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(2, len(result))
 
+    def test_get_python_buf_over(self):
+        request_data = {"name": "buffer overflow"}
+        response = self.client.get(self.url, request_data)
+        result = response.json()
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(1, len(result))
+        self.assertEqual("buffer overflow", result[0]["name"])
+
     def test_get_empty_result(self):
-        request_data = {"vulnerability": 100}
+        request_data = {"name": "an undefined vulnerability"}
         response = self.client.get(self.url, request_data)
         result = response.json()
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(0, len(result))
 
-    def test_get_python_software(self):
-        request_data = {"name": "python"}
+    def test_get_limited_softwares(self):
+        request_data = {"limit": 1}
         response = self.client.get(self.url, request_data)
         result = response.json()
 
         self.assertEqual(200, response.status_code)
         self.assertEqual(1, len(result))
-        self.assertEqual("python", result[0]["name"])
-
-    def test_get_limited_softwares(self):
-        request_data = {"limit": 2}
-        response = self.client.get(self.url, request_data)
-        result = response.json()
-
-        self.assertEqual(200, response.status_code)
-        self.assertEqual(2, len(result))
 
     def test_ordered_softwares(self):
-        expected_result = ["python", "pytest", "django"]
+        expected_result = ["buffer overflow", "out of bounds read"]
         expected_result = sorted(expected_result)
 
         request_data = {"order_by": "name"}
@@ -74,9 +66,9 @@ class ListCreateSoftwaresTestCase(APITestCase):
         self.assertEqual(expected_result, result)
 
 
-class CreateSoftwareTestCase(APITestCase):
+class CreateVulnerabilityTestCase(APITestCase):
     def setUp(self):
-        self.url = "/api/softwares/Software"
+        self.url = "/api/vulnerabilities/Vulnerability"
 
         self.username = "tanjmaxalb"
         self.email = "tanjamxalb@gmail.com"
@@ -88,9 +80,8 @@ class CreateSoftwareTestCase(APITestCase):
 
     def test_create_software(self):
         request_data = {
-            "name": "pandas",
+            "name": "a vulnerability",
             "description": "description",
-            "vulnerabilities": 1,
             "created_at": "2020-07-22T22:00:00Z",
             "updated_at": "2020-07-22T22:00:00Z"
         }
@@ -98,9 +89,9 @@ class CreateSoftwareTestCase(APITestCase):
         self.assertEqual(201, response.status_code)
 
 
-class DetailSoftwareTestCase(APITestCase):
+class DetailVulnerabilityTestCase(APITestCase):
     def setUp(self):
-        self.url = "/api/softwares/Software/{id_}"
+        self.url = "/api/vulnerabilities/Vulnerability/{id_}"
 
         self.username = "tanjmaxalb"
         self.email = "tanjamxalb@gmail.com"
@@ -111,33 +102,33 @@ class DetailSoftwareTestCase(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION="Token " + self.token.key)
 
     def test_update_software_name(self):
-        my_software = Software.objects.create(
-            name="python 2", description="too old python")
+        my_vulnerabilty = Vulnerability.objects.create(
+            name="new vulnerability", description="a description")
 
         request_data = {
-            "name": "python 3",
-            "description": "python 3.7",
+            "name": "new vulnerability",
+            "description": "important description",
             "updated_at": "2020-07-22T22:00:10Z"
         }
         response = self.client.put(
-            self.url.format(id_=my_software.pk), request_data)
+            self.url.format(id_=my_vulnerabilty.pk), request_data)
         self.assertEqual(200, response.status_code)
 
         result = json.loads(response.content)
-        self.assertEqual("python 3", result["name"])
+        self.assertEqual("new vulnerability", result["name"])
 
     def test_update_not_found(self):
-        request_data = {"name": "linux"}
+        request_data = {"name": "unknown vulnerability"}
         response = self.client.put(
             self.url.format(id_=10), request_data)
         self.assertEqual(404, response.status_code)
 
     def test_delete_software_name(self):
-        my_software = Software.objects.create(
-            name="python 2", description="too old python")
+        my_vulnerabilty = Vulnerability.objects.create(
+            name="new vulnerability", description="a description")
 
         response = self.client.delete(
-            self.url.format(id_=my_software.pk))
+            self.url.format(id_=my_vulnerabilty.pk))
 
         self.assertEqual(204, response.status_code)
 

@@ -37,7 +37,11 @@ class CoreListCreateView(ListCreateAPIView):
     def get_model(self):
         app_label = self.kwargs["app_label"]
         model_name = self.kwargs["model_name"]
-        model = apps.get_model(app_label, model_name)
+
+        try:
+            model = apps.get_model(app_label, model_name)
+        except LookupError:
+            raise NotFound
 
         return model
 
@@ -45,7 +49,7 @@ class CoreListCreateView(ListCreateAPIView):
         class Serializer(CoreSerializer):
             class Meta:
                 model = self.get_model()
-                fields = self.get_model_fields()
+                fields = "__all__"
 
         return Serializer
 
@@ -78,7 +82,7 @@ class CoreDetailView(RetrieveUpdateDestroyAPIView):
         class Serializer(CoreSerializer):
             class Meta:
                 model = self.get_model()
-                fields = self.get_model_fields()
+                fields = "__all__"
 
         return Serializer
 
@@ -88,6 +92,3 @@ class CoreDetailView(RetrieveUpdateDestroyAPIView):
         model = apps.get_model(app_label, model_name)
 
         return model
-
-    def get_model_fields(self):
-        return tuple(f.name for f in self.get_model()._meta.get_fields())
