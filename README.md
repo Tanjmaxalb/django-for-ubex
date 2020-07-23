@@ -1,16 +1,42 @@
-## Installation
+# Overview
+
+* [Installation](#installation)
+* [Testing](#testing)
+* [Usage](#usage)
+* [Request examples using curl](#request-examples-using-curl)
+    * [Create a vulnerability](#create-a-vulnerability)
+    * [Print a vulnerability](#print-a-vulnerability)
+* [API](#api)
+    * [Softwares](#softwares)
+        * [Get softwares](#get-softwares)
+            * [Parameters](#parameters)
+        * [Create a software](#create-a-software)
+            * [Parameters](#parameters)
+        * [Update a software](#update-a-software)
+            * [Parameters](#parameters)
+        * [Delete a software](#delete-a-software)
+    * [Vulnerabilities](#vulnerabilities)
+    * [Get vulnerabilities](#get-vulnerabilities)
+        * [Parameters](#parameters)
+    * [Create a vulnerability](#create-a-vulnerability)
+        * [Parameters](#parameters)
+    * [Update a vulnerability](#update-a-vulnerability)
+        * [Parameters](#parameters)
+    * [Delete a vulnerability](#delete-a-vulnerability)
+
+# Installation
 
 ```bash
 make build
 ```
 
-## Testing
+# Testing
 
 ```bash
 make test
 ```
 
-## Usage
+# Usage
 
 ```bash
 make run
@@ -24,9 +50,9 @@ make create-user-user
 make print_token
 ```
 
-### Requests
+# Request examples using curl
 
-#### Create a vulnerability
+## Create a vulnerability
 ```bash
 curl \
     --header "Content-Type: application/json" \
@@ -36,7 +62,7 @@ curl \
     http://127.0.0.1:8080/api/vulnerabilities/Vulnerability
 ```
 
-#### Print a vulnerability
+## Print a vulnerability
 
 ```bash
 curl -H "Authorization: Token $(make print_token)" http://127.0.0.1:8080/api/vulnerabilities/Vulnerability
@@ -49,14 +75,16 @@ Output:
 
 # API
 
-## Get softwares
+## Softwares
+
+### Get softwares
 
 | | |
 |-|-|
 | URL | /api/softwares/Software |
 | METHOD | GET |
 
-### Parameters
+#### Parameters
 
 | Patameter | Description |
 |-|-|
@@ -64,14 +92,14 @@ Output:
 | order_by | Sort result by column |
 | fields | Select all rows where the fields are equal set value |
 
-## Create a software
+### Create a software
 
 | | |
 |-|-|
 | URL | /api/softwares/Software |
 | METHOD | POST |
 
-### Parameters
+#### Parameters
 
 | Patameter | Description |
 |-|-|
@@ -81,14 +109,14 @@ Output:
 | created_at | Date of the creation (YYYY-mm-ddTHH:MM:SSZ format) |
 | updated_at | Date of the creation (YYYY-mm-ddTHH:MM:SSZ format) |
 
-## Update a software
+### Update a software
 
 | | |
 |-|-|
 | URL | /api/softwares/Software/{id} |
 | METHOD | PUT |
 
-### Parameters
+#### Parameters
 
 | Patameter | Description |
 |-|-|
@@ -98,21 +126,23 @@ Output:
 | created_at | Date of the creation (YYYY-mm-ddTHH:MM:SSZ format) |
 | updated_at | Date of the update (YYYY-mm-ddTHH:MM:SSZ format) |
 
-## Delete a software
+### Delete a software
 
 | | |
 |-|-|
 | URL | /api/softwares/Software/{id} |
 | METHOD | DELETE |
 
-# Get vulenrabilities
+## Vulnerabilities
+
+### Get vulnerabilities
 
 | | |
 |-|-|
 | URL | /api/vulnerabilities/Vulnerability |
 | METHOD | GET |
 
-### Parameters
+#### Parameters
 
 | Patameter | Description |
 |-|-|
@@ -120,14 +150,14 @@ Output:
 | order_by | Sort result by column |
 | fields | Select all rows where the fields are equal set value |
 
-## Create a vulnerability
+### Create a vulnerability
 
 | | |
 |-|-|
 | URL | /api/vulnerabilities/Vulnerability |
 | METHOD | POST |
 
-### Parameters
+#### Parameters
 
 | Patameter | Description |
 |-|-|
@@ -136,14 +166,14 @@ Output:
 | created_at | Date of the creation (YYYY-mm-ddTHH:MM:SSZ format) |
 | updated_at | Date of the creation (YYYY-mm-ddTHH:MM:SSZ format) |
 
-## Update a vulnerability
+### Update a vulnerability
 
 | | |
 |-|-|
 | URL | /api/vulnerabilities/Vulnerability/{id} |
 | METHOD | PUT |
 
-### Parameters
+#### Parameters
 
 | Patameter | Description |
 |-|-|
@@ -152,7 +182,7 @@ Output:
 | created_at | Date of the creation (YYYY-mm-ddTHH:MM:SSZ format) |
 | updated_at | Date of the update (YYYY-mm-ddTHH:MM:SSZ format) |
 
-## Delete a software
+### Delete a vulnerability
 
 | | |
 |-|-|
