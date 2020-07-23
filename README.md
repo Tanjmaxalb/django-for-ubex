@@ -46,3 +46,61 @@ Output:
 ```
 [{"id":1,"createdAt":"2020-07-23T04:40:58.407570+00:00","updatedAt":"2020-07-23T04:40:58.407617+00:00","created_at":"2020-07-23T04:40:58.407570Z","updated_at":"2020-07-23T04:40:58.407617Z","name":"buffer overflow","description":"description"}]
 ```
+
+# API
+
+## Get softwares
+
+| | |
+|-|-|
+| URL | /api/softwares/Software |
+| METHOD | GET |
+
+### Parameters
+
+| Patameter | Description |
+|-|-|
+| limit | Limit the selection |
+| order_by | Sort result by column |
+| fields | Select all rows where the fields are equal set value |
+
+## Create a software
+
+| | |
+|-|-|
+| URL | /api/softwares/Software |
+| METHOD | POST |
+
+### Parameters
+
+| Patameter | Description |
+|-|-|
+| name | Name of the software |
+| description | Description of the software |
+| vulnerability | identificator of vulnerability |
+| created_at | Date of the creation (YYYY-mm-ddTHH:MM:SSZ format) |
+| updated_at | Date of the creation (YYYY-mm-ddTHH:MM:SSZ format) |
+
+## Update a software
+
+| | |
+|-|-|
+| URL | /api/softwares/Software/{id} |
+| METHOD | PUT |
+
+### Parameters
+
+| Patameter | Description |
+|-|-|
+| name | Name of the software |
+| description | Description of the software |
+| vulnerability | identificator of vulnerability |
+| created_at | Date of the creation (YYYY-mm-ddTHH:MM:SSZ format) |
+| updated_at | Date of the update (YYYY-mm-ddTHH:MM:SSZ format) |
+
+## Delete a software
+
+| | |
+|-|-|
+| URL | /api/softwares/Software/{id} |
+| METHOD | DELETE |
