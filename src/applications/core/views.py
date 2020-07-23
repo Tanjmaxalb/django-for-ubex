@@ -15,6 +15,7 @@ class CoreListCreateView(ListCreateAPIView):
     def get_queryset(self):
         params = self.get_params_from_request()
         queryset = self.get_model().objects
+        queryset = queryset.all()
 
         order_by = params.pop("order_by", None)
         limit = params.pop("limit", None)
@@ -25,8 +26,6 @@ class CoreListCreateView(ListCreateAPIView):
 
         if order_by:
             queryset = queryset.order_by(order_by[0])
-
-        queryset = queryset.all()
 
         if limit:
             limit = int(limit[0])
@@ -61,15 +60,9 @@ class CoreListCreateView(ListCreateAPIView):
 
     def get_filters_by_params(self, params):
         models_fields = self.get_model_fields()
-        result = dict()
+        fields = set(params) & set(models_fields)
 
-        for field in params:
-            if field not in models_fields:
-                raise NotFound(f"Unknown {field} field")
-
-            result[field] = params[field]
-
-        return result
+        return {f: params[f] for f in fields}
 
 
 class CoreDetailView(RetrieveUpdateDestroyAPIView):
