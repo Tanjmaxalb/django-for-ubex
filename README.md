@@ -104,3 +104,57 @@ Output:
 |-|-|
 | URL | /api/softwares/Software/{id} |
 | METHOD | DELETE |
+
+# Get vulenrabilities
+
+| | |
+|-|-|
+| URL | /api/vulnerabilities/Vulnerability |
+| METHOD | GET |
+
+### Parameters
+
+| Patameter | Description |
+|-|-|
+| limit | Limit the selection |
+| order_by | Sort result by column |
+| fields | Select all rows where the fields are equal set value |
+
+## Create a vulnerability
+
+| | |
+|-|-|
+| URL | /api/vulnerabilities/Vulnerability |
+| METHOD | POST |
+
+### Parameters
+
+| Patameter | Description |
+|-|-|
+| name | Name of the software |
+| description | Description of the software |
+| created_at | Date of the creation (YYYY-mm-ddTHH:MM:SSZ format) |
+| updated_at | Date of the creation (YYYY-mm-ddTHH:MM:SSZ format) |
+
+## Update a vulnerability
+
+| | |
+|-|-|
+| URL | /api/vulnerabilities/Vulnerability/{id} |
+| METHOD | PUT |
+
+### Parameters
+
+| Patameter | Description |
+|-|-|
+| name | Name of the software |
+| description | Description of the software |
+| created_at | Date of the creation (YYYY-mm-ddTHH:MM:SSZ format) |
+| updated_at | Date of the update (YYYY-mm-ddTHH:MM:SSZ format) |
+
+## Delete a software
+
+| | |
+|-|-|
+| URL | /api/vulnerabilities/Vulnerability/{id} |
+| METHOD | DELETE |
